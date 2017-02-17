@@ -24,4 +24,20 @@ class TaskController extends FOSRestController
         $view = $this->view(true, 200);
         return $this->handleView($view);
     }
+    
+    public function getTaskAction(Request $request){
+        $em = $this->getDoctrine()->getManager();
+        $tasks = $em->getRepository("AppBundle:Task")->findAll();
+        
+        $view = $this->view($tasks, 200);
+        return $this->handleView($view);
+    }
+    
+    public function getTaskPostmanAction($id){
+        $em = $this->getDoctrine()->getManager();
+        $task = $em->getRepository("AppBundle:Task")->findTaskPostman($id);
+        
+        $view = $this->view($task, 200);
+        return $this->handleView($view);
+    }
 }
